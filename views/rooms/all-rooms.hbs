@@ -1,0 +1,17 @@
+<h2>All Rooms</h2>
+
+{{#each rooms}}
+
+    <a href="/rooms/room-details/{{_id}}">
+        <div>
+
+            <h4>{{name}}</h4>
+            <img class="room-preview" src="{{imageUrl}}" alt="room">
+
+        </div>
+    </a>
+
+    <br>
+    <hr>
+
+{{/each}}

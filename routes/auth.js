@@ -5,7 +5,7 @@ var mongoose = require('mongoose')
 const bcryptjs = require('bcryptjs')
 const saltRounds = 10
 
-const User = require('../models/User.model')
+const User = require('../models/User')
 
 router.get('/signup', (req, res, next) => {
     res.render('auth/signup.hbs')
@@ -44,7 +44,8 @@ router.post('/signup', (req, res, next) => {
         })
         .then(createdUser => {
             console.log('Newly created user is: ', createdUser);
-            res.redirect('/users/profile')
+            req.session.user = createdUser
+            res.redirect('/')
         })
         .catch(error => {
             // if (error instanceof mongoose.Error.ValidationError) {
@@ -76,7 +77,8 @@ router.post('/login', (req, res, next) => {
             } else if (bcryptjs.compareSync(password, user.password)) {
                 req.session.user = user
                 console.log('User:', user)
-                res.redirect(`/users/profile`);
+                res.redirect('/')
+                // res.redirect(`/users/profile`);
             } else {
                 res.render('auth/login', { errorMessage: 'Incorrect email or password.' });
             }
@@ -84,11 +86,11 @@ router.post('/login', (req, res, next) => {
         .catch(error => next(error));
 });
 
-router.post('/logout', (req, res, next) => {
+router.get('/logout', (req, res, next) => {
     req.session.destroy(err => {
         if (err) next(err);
         res.redirect('/');
-    });
+    })
 });
 
 module.exports = router;
