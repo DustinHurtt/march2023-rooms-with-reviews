@@ -41,4 +41,43 @@ router.get('/all-rooms', (req, res, next) => {
 
 })
 
+router.get('/room-details/:id', (req, res, next) => {
+    
+    Room.findById(req.params.id)
+        .populate('owner')
+        .populate({path: "reviews", 
+            populate: {path: "user"}})
+        .then((foundRoom) => {
+
+            let copiedRoom = { ...foundRoom }
+
+            if (req.session.user) {
+            
+            if (foundRoom.owner._id.toString() === req.session.user._id) {
+                copiedRoom._doc.isOwner = true
+                
+                } 
+            }
+            res.render('rooms/room-details.hbs', copiedRoom._doc)
+            
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+ 
+})
+
+router.get('/edit-room/:id', (req, res, next) => {
+
+    Room.findById(req.params.id)
+        .populate('owner')
+        .then((foundRoom) => {
+            res.render('rooms/edit-room.hbs', foundRoom)
+            
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+})
+
 module.exports = router;

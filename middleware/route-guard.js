@@ -16,9 +16,15 @@ const isLoggedIn = (req, res, next) => {
     }
     next();
   };
+
+  const isOwner = (req, res, next) => {
+
+    next();
+  }
   
   module.exports = {
     isLoggedIn,
-    isLoggedOut
+    isLoggedOut,
+    isOwner
   };
   

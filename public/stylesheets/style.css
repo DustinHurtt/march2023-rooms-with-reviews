@@ -10,3 +10,7 @@ a {
 .room-preview {
   height: 15vh;
 }
+
+.room-detail {
+  height: 40vh
+}

@@ -1,0 +1,47 @@
+<h2>Room Details</h2>
+
+<img class="room-detail" src="{{imageUrl}}" alt="room">
+
+<h3>{{name}}</h3>
+
+<p>{{description}}</p>
+
+<h6>Hosted by: {{owner.fullName}}</h6>
+
+{{#if isOwner}}
+
+<a href="/rooms/edit-room/{{_id}}"><button>Edit</button></a>
+<a href="/"><button>Delete</button></a>
+
+{{/if}}
+
+
+<hr>
+
+<h4>Reviews:</h4>
+
+<form action="/reviews/add-review/{{_id}}" method="post">
+    <label for="comment">Add Review</label>
+    <input id="comment" type="text" name="comment">
+    <button type="submit">submit review</button>
+</form>
+
+
+{{#if reviews}}
+
+{{#each reviews}}
+
+    <p>{{comment}}</p>
+    <h6>- {{user.fullName}}</h6>
+
+    <br>
+
+{{/each}}
+
+    {{else}}
+
+    <p>No reviews</p>
+
+{{/if}}
+
+

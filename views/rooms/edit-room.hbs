@@ -1,0 +1,16 @@
+<h2>Edit Room</h2>
+
+<form action="/rooms/edit-room/{{_id}}" method="post">
+
+    <label for="name">Name</label>
+    <input id="name" type="text" name="name" value="{{name}}">
+
+    <label for="description">Description</label>
+    <input id="description" type="text" name="description" value="{{description}}">
+
+    <label for="imageUrl">Image</label>
+    <input id="imageUrl" type="text" name="imageUrl" value="{{imageUrl}}">
+
+    <button type="submit">Edit Room</button>
+
+</form>
